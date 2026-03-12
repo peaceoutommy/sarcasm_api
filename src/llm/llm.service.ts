@@ -2,14 +2,14 @@ import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import { SarcasmText } from "src/entities/res/sarcasmText.res";
 import { ANALYSE_SARCASM_PROMPT } from "src/prompts/analyseSarcasm.prompt";
-
+import { env } from "src/config/env.config";
 
 @Injectable()
 export class LlmService {
 
     async analyseSarcasm(text: string): Promise<SarcasmText> {
-        const response = await axios.post(process.env.GROQ_API_URL, {
-            model: process.env.GROQ_MODEL,
+        const response = await axios.post(env.GROQ_API_URL, {
+            model: env.GROQ_MODEL,
             messages: [
                 {
                     role: "system",
@@ -23,7 +23,7 @@ export class LlmService {
         }, {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
+                "Authorization": `Bearer ${env.GROQ_API_KEY}`
             }
         });
         
