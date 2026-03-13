@@ -16,7 +16,6 @@ export class AnalyserGateway {
 
     @SubscribeMessage('analyseText')
     async analyseSarcasm(@MessageBody() body: { text: string }) {
-        console.log("Received text for analysis:", body.text);
         const result = await this.analyserService.analyseSarcasm(body.text);
 
         return {
